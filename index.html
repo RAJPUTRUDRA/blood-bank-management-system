@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Blood Bank Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header>
+
+        <h1>🩸 Blood Bank Management System</h1>
+
+        <p>
+            Cloud-Based Blood Availability & Management
+        </p>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main>
+
+
+        <!-- =========================
+             DASHBOARD STATISTICS
+        ========================== -->
+
+        <section class="dashboard-stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🩸
+                </div>
+
+                <div>
+                    <span>Total Blood Units</span>
+                    <strong id="totalBloodUnits">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👤
+                </div>
+
+                <div>
+                    <span>Total Donors</span>
+                    <strong id="totalDonors">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🏥
+                </div>
+
+                <div>
+                    <span>Total Requests</span>
+                    <strong id="totalRequests">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🚨
+                </div>
+
+                <div>
+                    <span>High Priority</span>
+                    <strong id="highPriorityRequests">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             WELCOME SECTION
+        ========================== -->
+
+        <section class="welcome">
+
+            <h2>
+                Welcome to Blood Bank System
+            </h2>
+
+            <p>
+                Manage blood availability, donors and
+                emergency blood requests using AWS Cloud.
+            </p>
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+                id="loginButton"
+                onclick="login()">
+                Login with Cognito
+            </button>
+
+
+            <!-- LOGOUT BUTTON -->
+
+            <button
+                id="logoutButton"
+                onclick="logoutUser()"
+                style="display: none;">
+                Logout
+            </button>
+
+
+            <!-- USER ROLE -->
+
+            <div id="userRole" class="user-role">
+                Not logged in
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FEATURE CARDS
+        ========================== -->
+
+        <section class="cards" id="featureCards">
+
+
+            <!-- =========================
+                 BLOOD AVAILABILITY
+            ========================== -->
+
+            <div class="card">
+
+                <h3>
+                    🩸 Blood Availability
+                </h3>
+
+                <p>
+                    Check available blood groups.
+                </p>
+
+                <button onclick="getBlood()">
+                    Check Blood
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 DONORS
+            ========================== -->
+
+            <div class="card" id="donorsCard">
+
+                <h3>
+                    👤 Donors
+                </h3>
+
+                <p>
+                    View registered blood donors.
+                </p>
+
+                <button onclick="getDonors()">
+                    View Donors
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 BLOOD REQUESTS
+            ========================== -->
+
+            <div class="card" id="requestsCard">
+
+                <h3>
+                    🏥 Blood Requests
+                </h3>
+
+                <p>
+                    View hospital blood requests.
+                </p>
+
+                <button onclick="getRequests()">
+                    View Requests
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =========================
+             CREATE BLOOD REQUEST
+        ========================== -->
+
+        <section
+            class="form-section"
+            id="createRequestSection">
+
+            <h2>
+                🏥 Create Blood Request
+            </h2>
+
+
+            <form id="requestForm">
+
+
+                <!-- Request ID -->
+
+                <input
+                    type="text"
+                    id="requestId"
+                    placeholder="Request ID (e.g. R004)"
+                    required
+                >
+
+
+                <!-- Hospital Name -->
+
+                <input
+                    type="text"
+                    id="hospitalName"
+                    placeholder="Hospital Name"
+                    required
+                >
+
+
+                <!-- Blood Group -->
+
+                <select
+                    id="bloodGroup"
+                    required>
+
+                    <option value="">
+                        Select Blood Group
+                    </option>
+
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+
+                </select>
+
+
+                <!-- Units Required -->
+
+                <input
+                    type="number"
+                    id="unitsRequired"
+                    placeholder="Units Required"
+                    min="1"
+                    required
+                >
+
+
+                <!-- City -->
+
+                <input
+                    type="text"
+                    id="city"
+                    placeholder="City"
+                    required
+                >
+
+
+                <!-- Urgency -->
+
+                <select
+                    id="urgency"
+                    required>
+
+                    <option value="">
+                        Select Urgency
+                    </option>
+
+                    <option value="LOW">LOW</option>
+                    <option value="MEDIUM">MEDIUM</option>
+                    <option value="HIGH">HIGH</option>
+
+                </select>
+
+
+                <!-- Submit -->
+
+                <button type="submit">
+                    Create Blood Request
+                </button>
+
+
+            </form>
+
+        </section>
+
+
+        <!-- =========================
+             FIND BLOOD MATCH
+        ========================== -->
+
+        <section
+            class="form-section"
+            id="matchSection">
+
+            <h2>
+                🔍 Find Blood Match
+            </h2>
+
+
+            <form id="matchForm">
+
+                <input
+                    type="text"
+                    id="matchRequestId"
+                    placeholder="Enter Request ID (e.g. R001)"
+                    required
+                >
+
+
+                <button type="submit">
+                    Find Blood Match
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- =========================
+             SYSTEM RESPONSE
+        ========================== -->
+
+        <section>
+
+            <h2>
+                System Response
+            </h2>
+
+
+            <pre id="output">
+No data loaded.
+            </pre>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
